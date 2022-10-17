@@ -29,8 +29,8 @@ class Lemma():
                 lemmas[lemma] += 1
         
         return lemmas
-        
-    def lemma_get_generator(self,lemma,pos=None):
+
+    def lemma_get_generator(self,lemma,pos=None,ignore_case=False):
         '''
         return generator of Le class instances
         
@@ -43,22 +43,43 @@ class Lemma():
         
         @rtype: list
         @return: list of Le class instances
+
+        Added:
+        @param ignore_case: True | False
+        @type ignore_case: bool
+        Default is False. If ignore_case True returns lemmas ignoring case
         '''
-        les = []
-        
-        for le_obj in self.les_get_generator():
-            can_lemma = le_obj.get_lemma()
+        if ignore_case == False:
             
-            if can_lemma == lemma:
+            les = []
+            
+            for le_obj in self.les_get_generator():
+                can_lemma = le_obj.get_lemma()
                 
-                if pos:
-                    part_of_speech = le_obj.get_pos()
-                    if pos == part_of_speech:
-                        les.append(le_obj)
-    
-                else:
-                    les.append(le_obj)
+                if can_lemma == lemma:
+                    
+                    if pos:
+                        part_of_speech = le_obj.get_pos()
+                        if pos == part_of_speech:
+                            les.append(le_obj)
         
+                    else:
+                        les.append(le_obj)
+        else:
+            les = []
+            for le_obj in self.les_get_generator():
+                can_lemma = le_obj.get_lemma()
+            
+                if can_lemma.lower() == lemma.lower():
+                
+                    if pos:
+                        part_of_speech = le_obj.get_pos()
+                        if pos == part_of_speech:
+                            les.append(le_obj)
+        
+                    else:
+                        les.append(le_obj)
+
         return les
     
     def lemma_num_senses(self,lemma,pos=None):
