@@ -59,7 +59,7 @@ class Synsets():
         return synset_info
 
     # Added by AN
-    def synsets_get_definition_dict_lang(self,lang=['en',nl]):
+    def synsets_get_definition_dict_lang(self,lang=['en','nl']):
         '''
         A modification of the synsets_get_definition_dict function;
         Adds a languge parameter to definitions;
