@@ -58,7 +58,20 @@ class Synsets():
             synset_info[sy_id]['definition'] = sy_obj.get_glosses()
         return synset_info
 
-
+    # Added by AN
+    def synsets_get_definition_dict_lang(self,lang=['en',nl]):
+        '''
+        A modification of the synsets_get_definition_dict function;
+        Adds a languge parameter to definitions;
+     
+        @type  lang: list
+        @param lang: list of languages to look for: "en" or "nl", for example ['nl']; default is both ['en','nl']
+        '''
+        synset_info = defaultdict(dict)
+        for sy_obj in self.synsets_get_generator():
+            sy_id = sy_obj.get_id()
+            synset_info[sy_id] = sy_obj.get_glosses(languages=lang)
+        return synset_info
 
     
     def synsets_add_synset(self,

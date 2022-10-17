@@ -16,6 +16,7 @@ class Le():
         self.sense_el = self.le_el.find("Sense") 
         self.lexicon_el = lexicon_el
         
+        
     
     def get_id(self):
         '''
@@ -26,6 +27,7 @@ class Le():
         :return: identifier of lexical entry
         '''
         return self.le_el.get("id")
+   
     
     def get_lemma(self):
         '''
@@ -110,7 +112,41 @@ class Le():
         :rtype: str
         :return: synset identifier. None if not found
         '''
-        return self.sense_el.get("synset") 
+        return self.sense_el.get("synset")
+    
+    def get_sense_example_id(self):
+        '''
+        :rtype: list. Empty if no examples found
+        :return: id of sense example of Sense
+        Added by AN
+        '''
+        sense_example_ids = []
+
+        for desc in self.sense_el.iterdescendants():
+            sense_examples = desc.findall("SenseExample")
+            for se in sense_examples:
+                sense_example_ids.append(se.get("id"))
+
+        return sense_example_ids
+    
+    def get_sense_example(self):
+        '''
+        :rtype: list. Empty if no examples found
+        :return: list of canonical and textual form of sense example of Sense
+        Added by AN
+        '''
+        examples = []
+        
+        for desc in self.sense_el.iterdescendants():
+            textual = desc.find("textualForm")
+            canonical = desc.find("canonicalForm")
+            
+            if textual is not None:
+                examples.append(textual.get("textualform"))
+            if canonical is not None:
+                examples.append(canonical.get("canonicalform"))
+        
+        return examples
     
     def remove_me(self):
         '''

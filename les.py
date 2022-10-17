@@ -314,13 +314,15 @@ class Les():
 
         :rtype: set
         :return: set of synonyms of the lemma according to odwn
+        Added by AN: fixed the bug with getting synonyms
+        (code taken from https://github.com/cltl/OpenDutchWordnet/issues/8#issuecomment-338160544) 
         '''
         if not all([hasattr(self, 'synset2lemmas'),
                     hasattr(self, 'lemma2synsets')]):
             self.les_load_synonyms_dicts()
 
         synonyms = set()
-        for synset_id in self.lemma2synsets[lemma]:
+        for synset_id in [x for x in self.lemma2synsets[lemma] if x is not None]:
             synonyms.update(self.synset2lemmas[synset_id])
 
         return synonyms
