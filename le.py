@@ -14,8 +14,8 @@ class Le():
     def __init__(self,le_el,lexicon_el):
         self.le_el    = le_el
         self.sense_el = self.le_el.find("Sense") 
+        self.pragmatics_el = self.sense_el.find("Pragmatics") # Added by AN
         self.lexicon_el = lexicon_el
-        
         
     
     def get_id(self):
@@ -147,6 +147,24 @@ class Le():
                 examples.append(canonical.get("canonicalform"))
         
         return examples
+
+    def get_pragmatics(self):
+        '''
+        Parse the pragmatics values: register, geography, chronology, connotation
+        :return: dict of values
+        Added by AN
+        '''
+
+        pragmatics_dict = {}
+
+        pragmatics_dict["register"] = self.pragmatics_el.get("register")
+        pragmatics_dict["geography"] = self.pragmatics_el.get("geography")
+        pragmatics_dict["chronology"] = self.pragmatics_el.get("chronology")
+        pragmatics_dict["connotation"] = self.pragmatics_el.get("connotation")
+
+        # domains
+
+        return pragmatics_dict
     
     def remove_me(self):
         '''
