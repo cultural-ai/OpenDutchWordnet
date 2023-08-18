@@ -163,6 +163,13 @@ class Le():
         pragmatics_dict["connotation"] = self.pragmatics_el.get("connotation")
 
         # domains
+        domain_tag = self.pragmatics_el.find("Domains")
+        if domain_tag is not None:
+            domain = domain_tag.get("domain")
+        else:
+            domain = None
+
+        pragmatics_dict["domain"] = domain
 
         return pragmatics_dict
     
