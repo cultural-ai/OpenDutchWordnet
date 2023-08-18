@@ -44,7 +44,7 @@ class Lemma():
         @rtype: list
         @return: list of Le class instances
 
-        Added:
+        Added by AN:
         @param ignore_case: True | False
         @type ignore_case: bool
         Default is False. If ignore_case True returns lemmas ignoring case
